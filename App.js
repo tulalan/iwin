@@ -6,8 +6,16 @@
  * @LastEditors: JAY
  */
 import React, {Component} from 'react';
-import {Linking, Alert, View, Button} from 'react-native';
+import {
+  Alert,
+  ImageBackground,
+  TouchableHighlight,
+  StyleSheet,
+  Image,
+} from 'react-native';
+
 import {WebView} from 'react-native-webview';
+import ErrorNetwork from './src/components/ErrorNetwork';
 
 export default class App extends Component {
   createTwoButtonAlert = () => {
@@ -39,22 +47,41 @@ export default class App extends Component {
   render() {
     const uri = 'https://iwin335.com/?code=820505';
     return (
-      <View style={{flex: 1}}>
-        <Button
-          onPress={() => {
-            this.createTwoButtonAlert();
-          }}
-          title="button"
-        />
-        <WebView
-          ref={(ref) => {
-            this.webview = ref;
-          }}
-          source={{uri}}
-          scrollEnabled={true}
-          injectedJavaScript={this.interJectJavascript}
-        />
-      </View>
+      <>
+        <ImageBackground
+          source={require('./src/assets/Bg.jpg')}
+          style={styles.Background}>
+          <TouchableHighlight
+            underlayColor="rgba(0, 0, 0, 0)"
+            style={styles.ButtonStyle}
+            onPress={() => {
+              this.createTwoButtonAlert();
+            }}>
+            <Image source={require('./src/assets/download.png')} />
+          </TouchableHighlight>
+          <WebView
+            style={styles.webview}
+            ref={(ref) => {
+              this.webview = ref;
+            }}
+            source={{uri}}
+            scrollEnabled={true}
+            injectedJavaScript={this.interJectJavascript}
+          />
+        </ImageBackground>
+        <ErrorNetwork />
+      </>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  Background: {flex: 1},
+  ButtonStyle: {
+    alignSelf: 'center',
+  },
+  webview: {
+    display: 'none',
+    backgroundColor: 'transparent',
+  },
+});

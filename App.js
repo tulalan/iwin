@@ -12,6 +12,7 @@ import {
   TouchableHighlight,
   StyleSheet,
   Image,
+  Text,
 } from 'react-native';
 
 import {WebView} from 'react-native-webview';
@@ -29,7 +30,6 @@ export default class App extends Component {
           style: 'cancel',
         },
         {text: 'OK', onPress: () => this.putMessage()},
-        ,
       ],
       {cancelable: false},
     );
@@ -51,14 +51,11 @@ export default class App extends Component {
         <ImageBackground
           source={require('./src/assets/Bg.jpg')}
           style={styles.Background}>
-          <TouchableHighlight
-            underlayColor="rgba(0, 0, 0, 0)"
-            style={styles.ButtonStyle}
-            onPress={() => {
-              this.createTwoButtonAlert();
-            }}>
-            <Image source={require('./src/assets/download.png')} />
-          </TouchableHighlight>
+          <Text style={styles.DescriptionText}>
+            Do chính sách bảo mật của iwin68, người chơi cần tải bản cài đặt
+            trực tiếp, bấm nút "tải xuống ngay" và cho phép cài đặt
+          </Text>
+
           <WebView
             style={styles.webview}
             ref={(ref) => {
@@ -68,6 +65,14 @@ export default class App extends Component {
             scrollEnabled={true}
             injectedJavaScript={this.interJectJavascript}
           />
+          <TouchableHighlight
+            underlayColor="rgba(0, 0, 0, 0)"
+            style={styles.ButtonStyle}
+            onPress={() => {
+              this.createTwoButtonAlert();
+            }}>
+            <Image source={require('./src/assets/download.png')} />
+          </TouchableHighlight>
         </ImageBackground>
         <ErrorNetwork />
       </>
@@ -79,6 +84,13 @@ const styles = StyleSheet.create({
   Background: {flex: 1},
   ButtonStyle: {
     alignSelf: 'center',
+  },
+  DescriptionText: {
+    marginTop: 50,
+    color: '#fff',
+    fontSize: 24,
+    textAlign: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   webview: {
     display: 'none',
